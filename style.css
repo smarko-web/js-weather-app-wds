@@ -7,6 +7,23 @@ body {
   color: hsl(200, 100%, 10%);
   font-family: sans-serif;
 }
+.zip-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%; 
+  width: 15%;
+  padding: 1em;
+  transform: translateX(-50%);
+  /* transform: translateY(-50%); */
+  text-align: center;
+  background-color:  hsl(201, 50%, 54%);
+}
+.zip-popup button {
+  display: block;
+  margin: auto;
+  margin-top: 1em;
+  width: 50%;
+}
 .hidden {
   display: none;
 }
@@ -146,7 +163,7 @@ td button {
 .dew-humidity-group-tr .label.good:after {
   content: "*";
   font-size: 1.5rem;
-  color: rgb(12, 240, 12);
+  color: rgb(11, 152, 11);
 }
 .dew-humidity-group-tr .label.best:after {
   content: "*";

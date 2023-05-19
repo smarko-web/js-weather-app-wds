@@ -4,6 +4,8 @@ import { ICON_MAP } from "./iconMap";
 navigator.geolocation.getCurrentPosition(positionSuccess, positionFailure);
 
 function positionSuccess({ coords }) {
+  const app = document.querySelector(".app");
+  app.classList.remove("blurred")
   getWeather(
     coords.latitude,
     coords.longitude,
@@ -16,14 +18,46 @@ function positionSuccess({ coords }) {
   })
 }
 function positionFailure() {
-  alert("There was an error getting current location, please allow this site to use your location")
+  // alert("There was an error getting current location, please allow this site to use your location")
+  const app = document.querySelector(".app");
+  const popup = document.querySelector(".zip-popup");
+  app.classList.add('blurred');
+  popup.classList.remove('hidden');
+
+  var address = document.querySelector('#address');
+  const searchBtn = document.querySelector(".search");
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + address.value;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => address = data)
+      .then(show => console.log("latitude:" + address[0].lat))
+      .then(show => console.log("longitude:" + address[0].lon))
+      // .then(weather => getWeather(address[0].lat, address[0].lon, Intl.DateTimeFormat))
+      // .then(weather => renderWeather)
+      .catch(err => console.error(err))
+  
+  });
+  function findAddress(e) {
+    e.preventDefault();
+    var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + address.value;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => addressArr = data)
+      .then(show => console.log(addressArr))
+      .catch(err => console.error(err))
+  }
 }
 function renderWeather({ current, daily, hourly }) {
   renderCurrentWeather(current);
   renderDailyWeather(daily); 
   renderHourlyWeather(hourly);
-  document.body.classList.remove('blurred')
-
+  // const app = document.querySelector(".app");
+  // const popup = document.querySelector(".zip-popup");
+  // app.classList.remove('blurred');
+  // popup.classList.add('hidden');
   // console.log(splitHours(hourly, 6));
 }
 function setValue(selector, value, { parent = document } = {}) {
