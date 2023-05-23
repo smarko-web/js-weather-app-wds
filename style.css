@@ -186,3 +186,13 @@ footer, .btn-container {
 footer {
   font-size: .75rem;
 }
+
+@media screen and (max-width: 320px) {
+  header {
+    flex-direction: column;
+  }
+  .header-left {
+    border-right: 0;
+    border-bottom: 2px solid hsl(200, 100%, 10%);
+  }
+}
